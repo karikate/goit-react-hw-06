@@ -2,9 +2,12 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import { nanoid } from "nanoid";
 import * as Yup from "yup";
 import s from "./ContactForm.module.css";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
-const ContactForm = ({ handleAddContact }) => {
+const ContactForm = () => {
   const initialValues = { id: "", name: "", number: "" };
+  const dispatch = useDispatch();
 
   const handleSubmit = (values, options) => {
     const newContact = {
@@ -12,7 +15,7 @@ const ContactForm = ({ handleAddContact }) => {
       name: values.name,
       number: values.number,
     };
-    handleAddContact(newContact);
+    dispatch(addContact(newContact));
     options.resetForm();
   };
   const onlyWords = /^[a-zA-Z]+$/;
